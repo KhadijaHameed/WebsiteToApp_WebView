@@ -39,13 +39,9 @@ class MainActivity : AppCompatActivity() {
         )
         setContentView(R.layout.activity_main)
         drawer = findViewById(R.id.drawer_layout)
-//        if (!drawer.isDrawerOpen((GravityCompat.START)))
-//            drawer.closeDrawer(GravityCompat.START);
-        //        if (!drawer.isDrawerOpen((GravityCompat.START)))
-//            drawer.closeDrawer(GravityCompat.START);
-        if (supportActionBar != null) supportActionBar!!.setTitle(getString(R.string.dashboard))
+       /* if (supportActionBar != null) supportActionBar!!.setTitle(getString(R.string.dashboard))
         val toolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(toolbar)*/
         if (supportActionBar != null) supportActionBar!!.setDisplayShowTitleEnabled(false)
         val navigationView: NavigationView = findViewById(R.id.nav_view)
         val header_View = navigationView.getHeaderView(0)
@@ -65,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         initiateActionBarDrawerToggle()
 //        navigationView.setNavigationItemSelectedListener(this);
         //        navigationView.setNavigationItemSelectedListener(this);
-
+        navigationExpandableListView = findViewById(R.id.expandable_navigation)
 
         initNavigation()
     }
@@ -82,14 +78,14 @@ class MainActivity : AppCompatActivity() {
         toggle!!.syncState()
     }
     private fun initNavigation() {
-        navigationExpandableListView = findViewById(R.id.expandable_navigation)
-        navigationExpandableListView.init(this@MainActivity)
-            .addHeaderModel(HeaderModel("Home", R.drawable.splash))
+
+        navigationExpandableListView?.init(this@MainActivity)
+            ?.addHeaderModel(HeaderModel("Home", R.drawable.splash))
 
 
-            .build()
-            .addOnGroupClickListener({ parent, v, groupPosition, id ->
-                navigationExpandableListView.setSelected(groupPosition)
+            ?.build()
+            ?.addOnGroupClickListener({ parent, v, groupPosition, id ->
+                navigationExpandableListView?.setSelected(groupPosition)
                 openFragments(groupPosition)
                 false
             })
