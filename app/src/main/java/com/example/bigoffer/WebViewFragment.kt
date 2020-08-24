@@ -35,6 +35,7 @@ class WebViewFragment : BaseFragment() ,View.OnKeyListener{
     }
 
 
+    lateinit var url: String
     lateinit var webView: WebView
     lateinit var progressBar: ProgressBar
 
@@ -79,7 +80,7 @@ class WebViewFragment : BaseFragment() ,View.OnKeyListener{
                Toast.makeText(context, "Fail: "+description,Toast.LENGTH_LONG)
             }
         }
-        webView.loadUrl("https://bigoffer.pk/")
+        webView.loadUrl(url)
 
         super.onViewCreated(view, savedInstanceState)
     }

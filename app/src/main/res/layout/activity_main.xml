@@ -3,44 +3,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
+    android:background="@android:color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    >
+    android:fitsSystemWindows="true">
 
     <include
+
         layout="@layout/app_bar_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:itemIconTint="@android:color/white"
-        app:itemTextColor="@android:color/white"
-        android:background="@drawable/side_nav_bar"
+        android:background="@android:color/white"
         app:headerLayout="@layout/nav_header_main">
-
+        <!--
+           app:itemShapeFillColor="@color/shape_selector"
+  app:itemIconTint="@color/icon_tint_selector"
+        app:itemTextColor="@color/text_color_selector"-->
 
         <ScrollView
-            android:fillViewport="true"
-            android:layout_marginTop="172dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="172dp"
+            android:fillViewport="true">
+
             <com.techatmosphere.expandablenavigation.view.ExpandableNavigationListView
                 android:id="@+id/expandable_navigation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:groupIndicator="@null"
                 android:dividerHeight="1dp"
-                />
+                android:groupIndicator="@null" />
         </ScrollView>
     </com.google.android.material.navigation.NavigationView>
 
 
-</androidx.drawerlayout.widget.DrawerLayout>
-    <!--   -->
+</androidx.drawerlayout.widget.DrawerLayout><!--   -->

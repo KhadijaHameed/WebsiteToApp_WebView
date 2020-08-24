@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
@@ -14,14 +15,13 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@color/themeBlack"
             app:popupTheme="@style/AppTheme.PopupOverlay">
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Toolbar Title"
                 android:textColor="@android:color/white"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
         </androidx.appcompat.widget.Toolbar>

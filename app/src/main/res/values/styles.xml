@@ -16,4 +16,23 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="navBarView">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/holo_purple</item>
+        <item name="android:fontFamily">@font/gothambold</item>
+
+    </style>
+
+    <style name="ApBaseDrawerNavigationMenuStyle" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="colorControlNormal">@null</item>
+        <item name="android:color">@color/colorPrimary</item>
+        <item name="android:textColor">@android:color/darker_gray</item>
+        <item name="android:textColorHint">@android:color/holo_orange_light</item>
+        <item name="android:textColorPrimary">@android:color/holo_red_dark</item>
+        <item name="android:textColorSecondary">@android:color/holo_green_dark</item>
+        <item name="android:background">#548893</item>
+        <item name="android:colorPrimary" tools:targetApi="lollipop">@android:color/holo_blue_bright</item>
+        <item name="android:colorControlHighlight" tools:targetApi="lollipop">@android:color/holo_blue_dark</item>
+    </style>
+
 </resources>
