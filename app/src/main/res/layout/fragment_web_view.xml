@@ -27,4 +27,13 @@
     </LinearLayout>
 
 
+    <ImageView
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:id="@+id/iv_no_internet"
+        android:scaleType="center"
+        android:background="#F5F5F5"
+        android:src="@drawable/no_internet_connection_"
+        android:layout_height="match_parent"/>
+
 </FrameLayout>

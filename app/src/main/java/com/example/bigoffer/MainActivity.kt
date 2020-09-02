@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     var toolb: Toolbar? = null
     var snackbar: Snackbar? = null
     var navigationExpandableListView: ExpandableNavigationListView? = null
+    private lateinit  var  ivNoInternet : ImageView
     private var toggle: ActionBarDrawerToggle? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,14 +40,16 @@ class MainActivity : AppCompatActivity() {
 
 
 
+         ivNoInternet =  findViewById(R.id.iv_no_internet)
         if (isNetworkConnected() == false) {
-            Toast.makeText(this, "Check your internet connection..", Toast.LENGTH_SHORT).show()
+            ivNoInternet.visibility = View.VISIBLE
+          //  Toast.makeText(this, "Check your internet connection..", Toast.LENGTH_SHORT).show()
+        }else {
+            var bundle = Bundle()
+            var webviewfragment = WebViewFragment()
+            webviewfragment.url = "https://bigoffer.pk/"
+            loadFragment(webviewfragment, false, null)
         }
-        var bundle = Bundle()
-        var webviewfragment = WebViewFragment()
-        webviewfragment.url = "https://bigoffer.pk/"
-        loadFragment(webviewfragment, true,null)
-
         window.setFlags(
                 WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
@@ -133,7 +136,8 @@ class MainActivity : AppCompatActivity() {
                 ?.build()
                 ?.addOnGroupClickListener({ parent, v, groupPosition, id ->
                     navigationExpandableListView?.setSelected(groupPosition)
-                    openFragments(groupPosition)
+
+                        openFragments(groupPosition)
                     false
                 })
         /*.addOnChildClickListener({ parent, v, groupPosition, childPosition, id ->
@@ -152,41 +156,55 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openFragments(position: Int) {
-
-        Toast.makeText(applicationContext, "Loading.. ", Toast.LENGTH_LONG).show()
-        val webViewFragment = WebViewFragment()
-
         if (isNetworkConnected() == false) {
-            Toast.makeText(this, "Check your internet connection..", Toast.LENGTH_SHORT).show()
+            ivNoInternet.visibility = View.VISIBLE
+            //  Toast.makeText(this, "Check your internet connection..", Toast.LENGTH_SHORT).show()
+        }else {
+            ivNoInternet.visibility = View.GONE
+            Toast.makeText(applicationContext, "Loading.. ", Toast.LENGTH_LONG).show()
+            val webViewFragment = WebViewFragment()
+
+
+            when (position) {
+
+
+                0 -> webViewFragment.url = "https://bigoffer.pk/"
+                1 -> webViewFragment.url = "https://bigoffer.pk/shop/"
+                2 -> webViewFragment.url = "https://bigoffer.pk/product-category/sports-nutrition/"
+                3 -> webViewFragment.url = "https://bigoffer.pk/product-category/health-wellness/"
+                4 -> webViewFragment.url = "https://bigoffer.pk/product-category/electronics/"
+                5 -> webViewFragment.url = "https://bigoffer.pk/product-category/pickle/"
+                6 -> webViewFragment.url = "https://bigoffer.pk/blog/"
+                7 -> webViewFragment.url = "https://bigoffer.pk/about/"
+                8 -> webViewFragment.url = "https://bigoffer.pk/contact-us/"
+                else -> Log.d("test", "else position " + position)
+            }
+
+            //load fragment and close drawer
+            if (position != 9) {
+                loadFragment(webViewFragment, false, null)
+            }
+
         }
-        when (position) {
 
 
-           0 -> webViewFragment.url = "https://bigoffer.pk/"
-            1 ->webViewFragment.url = "https://bigoffer.pk/shop/"
-            2 ->  webViewFragment.url = "https://bigoffer.pk/product-category/sports-nutrition/"
-            3 -> webViewFragment.url = "https://bigoffer.pk/product-category/health-wellness/"
-            4 -> webViewFragment.url = "https://bigoffer.pk/product-category/electronics/"
-            5 -> webViewFragment.url = "https://bigoffer.pk/product-category/pickle/"
-            6 -> webViewFragment.url = "https://bigoffer.pk/blog/"
-            7 -> webViewFragment.url = "https://bigoffer.pk/about/"
-            8 -> webViewFragment.url = "https://bigoffer.pk/contact-us/"
-            else -> Log.d("test", "else position " + position)
-        }
-
-        //load fragment and close drawer
-        if (position!=9){ loadFragment(webViewFragment, false, null)}
         drawer!!.closeDrawer(GravityCompat.START)
     }
 
     fun loadFragment(baseFragment: BaseFragment, addToBackStack: Boolean, bundle: Bundle?) {
+        if (isNetworkConnected() == false) {
+            //Toast.makeText(this, "Check your internet connection..", Toast.LENGTH_SHORT).show()
+            ivNoInternet.visibility = View.VISIBLE
+        }else{
             val fragmentTransaction = supportFragmentManager.beginTransaction()
             fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out)
             if (bundle != null) baseFragment.arguments = bundle
             fragmentTransaction.add(R.id.container, baseFragment, "MainActivity")
-          //  if (addToBackStack)
-           // fragmentTransaction.addToBackStack(null)
+            //  if (addToBackStack)
+            // fragmentTransaction.addToBackStack(null)
             fragmentTransaction.commit()
+        }
+
 
     }
 

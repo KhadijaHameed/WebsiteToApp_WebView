@@ -1,7 +1,9 @@
 package com.uhfSolution.ahlAndroid.fragments
 
 
+import android.content.Context
 import android.graphics.Bitmap
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.KeyEvent
 import androidx.fragment.app.Fragment
@@ -11,6 +13,7 @@ import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
 import com.example.bigoffer.BaseFragment
@@ -38,6 +41,7 @@ class WebViewFragment : BaseFragment() ,View.OnKeyListener{
     lateinit var url: String
     lateinit var webView: WebView
     lateinit var progressBar: ProgressBar
+    private lateinit  var  ivNoInternet : ImageView
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -47,8 +51,36 @@ class WebViewFragment : BaseFragment() ,View.OnKeyListener{
 //        setCurrentFragment(this.javaClass.simpleName)
         val view =inflater.inflate(R.layout.fragment_web_view, container, false)
         webView = view.findViewById(R.id.web_view)
+        ivNoInternet =  view.findViewById(R.id.iv_no_internet)
+
+        if (isNetworkConnected() == false) {
+            ivNoInternet.visibility = View.VISIBLE
+            webView.visibility = View.GONE
+            //  Toast.makeText(this, "Check your internet connection..", Toast.LENGTH_SHORT).show()
+        }else {
+            ivNoInternet.visibility = View.GONE
+            webView.visibility = View.VISIBLE
+        }
+
         progressBar = view.findViewById(R.id.progress_bar)
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (isNetworkConnected() == false) {
+            ivNoInternet.visibility = View.VISIBLE
+            webView.visibility = View.GONE
+            //  Toast.makeText(this, "Check your internet connection..", Toast.LENGTH_SHORT).show()
+        }else {
+            ivNoInternet.visibility = View.GONE
+            webView.visibility = View.VISIBLE
+        }
+    }
+    private fun isNetworkConnected(): Boolean {
+        val cm =
+            context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        return cm.activeNetworkInfo != null && cm.activeNetworkInfo.isConnected
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -80,7 +112,16 @@ class WebViewFragment : BaseFragment() ,View.OnKeyListener{
                Toast.makeText(context, "Fail: "+description,Toast.LENGTH_LONG)
             }
         }
-        webView.loadUrl(url)
+        if (isNetworkConnected() == false) {
+            ivNoInternet.visibility = View.VISIBLE
+            webView.visibility = View.GONE
+             Toast.makeText(context, "Check your internet connection..", Toast.LENGTH_SHORT).show()
+        }else {
+            ivNoInternet.visibility = View.GONE
+            webView.visibility = View.VISIBLE
+            webView.loadUrl(url)
+        }
+
 
         super.onViewCreated(view, savedInstanceState)
     }
